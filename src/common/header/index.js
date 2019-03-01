@@ -46,7 +46,7 @@ const Header = (props) => {
 
 
 const mapStateToProps = (state, ownProps) => ({
-    focused: state.focused,
+    focused: state.header.focused,
 })
 
 const mapDispatchToProps = (dis) => {
