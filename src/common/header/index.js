@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button, SearchWrapper } from './style'
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
-import { handleFocusAction, handleBlurAction } from '../../store/actionCreater';
+import { actionCreater } from './store'
 
 
 const Header = (props) => {
@@ -51,8 +51,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dis) => {
     return {
-        handleFocus: () => dis(handleFocusAction()),
-        handleBlur: () => dis(handleBlurAction())
+        handleFocus: () => dis(actionCreater.handleFocusAction()),
+        handleBlur: () => dis(actionCreater.handleBlurAction())
     }
 }
 

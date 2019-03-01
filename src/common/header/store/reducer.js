@@ -1,4 +1,4 @@
-import { HANDLEFOCUS, HANDLEBLUR } from "../../../store/actionTypes";
+import * as  actionTypes from "./actionTypes";
 
 const initialState = {
     focused: false,
@@ -7,14 +7,14 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
     switch (type) {
 
-        case HANDLEFOCUS:
+        case actionTypes.HANDLEFOCUS:
             {
                 const newState = JSON.parse(JSON.stringify(state))
                 newState.focused = true;
                 return newState;
             }
-            
-        case HANDLEBLUR:
+
+        case actionTypes.HANDLEBLUR:
             {
                 const newState = JSON.parse(JSON.stringify(state))
                 newState.focused = false;
