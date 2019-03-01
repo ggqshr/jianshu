@@ -1,3 +1,7 @@
+import { createGlobalStyle  } from 'styled-components'
+
+
+export const Globalstyle = createGlobalStyle`
 @font-face {font-family: "iconfont";
   src: url('iconfont.eot?t=1551419013923'); /* IE9 */
   src: url('iconfont.eot?t=1551419013923#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -26,4 +30,4 @@
 .iconthin-_write_penc:before {
   content: "\e602";
 }
-
+`;
