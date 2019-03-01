@@ -18,7 +18,9 @@ export default (state = initialState, { type, payload }) => {
             {
                 return state.set('focused',false)
             }
-
+        case actionTypes.GET_LIST:{
+            return state.set('list',payload);
+        }
         default:
             return state
     }
