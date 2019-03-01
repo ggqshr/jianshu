@@ -1,24 +1,21 @@
 import * as  actionTypes from "./actionTypes";
-
-const initialState = {
+import { fromJS } from 'immutable'
+const initialState = fromJS({
     focused: false,
-}
+})
+
 
 export default (state = initialState, { type, payload }) => {
     switch (type) {
 
         case actionTypes.HANDLEFOCUS:
             {
-                const newState = JSON.parse(JSON.stringify(state))
-                newState.focused = true;
-                return newState;
+                return state.set('focused',true)
             }
 
         case actionTypes.HANDLEBLUR:
             {
-                const newState = JSON.parse(JSON.stringify(state))
-                newState.focused = false;
-                return newState;
+                return state.set('focused',false)
             }
 
         default:
