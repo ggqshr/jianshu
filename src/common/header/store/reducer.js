@@ -33,7 +33,7 @@ export default (state = initialState, { type, payload,totalPage }) => {
         }
         case actionTypes.CHANGE_LIST:{
             const nextPage = (state.get('page')+1)%(state.get('totalPage')+1);
-            return state.set('page',nextPage==0?1:nextPage)
+            return state.set('page',nextPage===0?1:nextPage)
         }
         default:
             return state
