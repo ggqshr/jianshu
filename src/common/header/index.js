@@ -1,12 +1,13 @@
-import React,{Component}from 'react'
+import React, { Component } from 'react'
 import { SearchInfoList, SearchInfoItem, SearchInfoSwitch, HeaderWrapper, Logo, Nav, NavItem, NavSearch, Addition, Button, SearchWrapper, SearchInfo, SearchInfoTitle } from './style'
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { actionCreater } from './store'
 
 
-class Header extends Component{
-    render(){
+class Header extends Component {
+
+    render() {
         return (
             <HeaderWrapper>
                 <Logo />
@@ -30,7 +31,7 @@ class Header extends Component{
                                 }
                             ></NavSearch>
                         </CSSTransition>
-                        <i className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe62d;</i>
+                        <i className={this.props.focused ? 'focused iconfont zoom' : 'iconfont zoom'}>&#xe62d;</i>
                         {this.getListArea()}
                     </SearchWrapper>
                 </Nav>
@@ -45,20 +46,27 @@ class Header extends Component{
         )
     }
     getListArea = () => {
-        if (this.props.focused) {
+        const jsList = this.props.list.toJS()
+        const dataList = []
+        for (let i = (this.props.page - 1) * 2; i < this.props.page * 2; i++) {
+            dataList.push(
+                <SearchInfoItem key={jsList[i]}>{jsList[i]}</SearchInfoItem>
+            )
+        }
+        if (this.props.focused||this.props.mouseIn) {
             return (
-                <SearchInfo>
+                <SearchInfo onMouseEnter={this.props.handleMouseEnter}
+                onMouseLeave={this.props.handleMouseLeave}
+                >
                     <SearchInfoTitle>
                         热门搜索
-                                    <SearchInfoSwitch>换一换</SearchInfoSwitch>
+                                    <SearchInfoSwitch onClick={()=>this.props.handleSwitch(this.spinIcnon)}>
+                                    <i ref={(icon)=>{this.spinIcnon = icon}} className='iconfont spin'>&#xe851;</i>
+                                    换一换</SearchInfoSwitch>
                     </SearchInfoTitle>
                     <SearchInfoList>
                         {
-                            this.props.list.map((item,index)=>{
-                                return (
-                                    <SearchInfoItem key={index}>{item}</SearchInfoItem>
-                                )
-                            })
+                            dataList
                         }
                     </SearchInfoList>
                 </SearchInfo>
@@ -73,7 +81,9 @@ class Header extends Component{
 
 const mapStateToProps = (state, ownProps) => ({
     focused: state.getIn(['header', 'focused']),
-    list:state.getIn(['header','list']),
+    list: state.getIn(['header', 'list']),
+    page: state.getIn(['header', 'page']),
+    mouseIn:state.getIn(['header','mouseIn'])
 })
 
 const mapDispatchToProps = (dis) => {
@@ -82,7 +92,20 @@ const mapDispatchToProps = (dis) => {
             dis(actionCreater.getList())
             dis(actionCreater.handleFocusAction())
         },
-        handleBlur: () => dis(actionCreater.handleBlurAction())
+        handleBlur: () => dis(actionCreater.handleBlurAction()),
+        handleMouseEnter:()=>dis(actionCreater.handleMouseEnter()),
+        handleMouseLeave:()=>dis(actionCreater.handleMouseLeaveAction()),
+        handleSwitch:(spin)=>{
+            let originAg = spin.style.transform.replace(/[^0-9]/ig,'')
+            if (originAg){
+                originAg = parseInt(originAg,10)
+            }else{
+                originAg=0;
+            }
+            spin.style.transform = 'rotate('+(originAg+360)+'deg)'
+            
+            dis(actionCreater.handleSwitchAction())
+        }
     }
 }
 

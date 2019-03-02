@@ -9,9 +9,23 @@ export const handleBlurAction = () => ({
   type: actionTypes.HANDLEBLUR,
 })
 
+export const handleMouseEnter = () => ({
+  type: actionTypes.MOUSE_ENTER,
+})
+
+export const handleMouseLeaveAction = () => ({
+  type: actionTypes.MOUSE_LEAVE,
+})
+
+export const handleSwitchAction = () => ({
+  type: actionTypes.CHANGE_LIST,
+})
+
+
 export const getListAction = (payload) => ({
   type: actionTypes.GET_LIST,
-  payload:fromJS(payload)
+  payload:fromJS(payload),
+  totalPage:Math.ceil(payload.length/2)
 })
 
 export const getList = () => {

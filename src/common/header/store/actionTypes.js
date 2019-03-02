@@ -1,3 +1,6 @@
 export const HANDLEFOCUS = 'handleFocus'
 export const HANDLEBLUR = 'HANDLEBLUR'
 export const GET_LIST = 'GET_LIST'
+export const MOUSE_ENTER = 'MOUSE_ENTER'
+export const MOUSE_LEAVE = 'MOUSE_LEAVE'
+export const CHANGE_LIST = 'CHANGE_LIST'
