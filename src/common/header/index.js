@@ -26,7 +26,7 @@ class Header extends Component {
                         >
                             <NavSearch
                                 className={this.props.focused ? 'focused' : ''}
-                                onFocus={() => this.props.handleFocus()}
+                                onFocus={() => this.props.handleFocus(this.props.list)}
                                 onBlur={() => this.props.handleBlur()
                                 }
                             ></NavSearch>
@@ -88,8 +88,10 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dis) => {
     return {
-        handleFocus: () => {
-            dis(actionCreater.getList())
+        handleFocus: (list) => {
+            if(!list.size){
+                dis(actionCreater.getList())
+            }
             dis(actionCreater.handleFocusAction())
         },
         handleBlur: () => dis(actionCreater.handleBlurAction()),
