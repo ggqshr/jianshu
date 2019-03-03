@@ -3,6 +3,8 @@ import { SearchInfoList, SearchInfoItem, SearchInfoSwitch, HeaderWrapper, Logo, 
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { actionCreater } from './store'
+import {Link} from 'react-router-dom'
+import {actionCreater as loginActionCreater} from '../../pages/login/store'
 
 
 class Header extends Component {
@@ -14,7 +16,12 @@ class Header extends Component {
                 <Nav>
                     <NavItem className='left active'>首页</NavItem>
                     <NavItem className='left'>下载App</NavItem>
-                    <NavItem className='right'>登陆</NavItem>
+                    {
+                        this.props.login?
+                        <NavItem className='right' onClick={this.props.logOut}>退出</NavItem>:
+                        <Link to='/login'><NavItem className='right'>登陆</NavItem></Link>
+                    }
+                    
                     <NavItem className='right'>
                         <i className='iconfont'>&#xe636;</i>
                     </NavItem>
@@ -83,7 +90,8 @@ const mapStateToProps = (state, ownProps) => ({
     focused: state.getIn(['header', 'focused']),
     list: state.getIn(['header', 'list']),
     page: state.getIn(['header', 'page']),
-    mouseIn:state.getIn(['header','mouseIn'])
+    mouseIn:state.getIn(['header','mouseIn']),
+    login:state.getIn(['login','login']),
 })
 
 const mapDispatchToProps = (dis) => {
@@ -107,6 +115,9 @@ const mapDispatchToProps = (dis) => {
             spin.style.transform = 'rotate('+(originAg+360)+'deg)'
             
             dis(actionCreater.handleSwitchAction())
+        },
+        logOut:()=>{
+            dis(loginActionCreater.logoutAction())
         }
     }
 }

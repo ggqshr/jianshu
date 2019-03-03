@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+
 export default class Detail extends Component {
   render() {
     //拿到在url中传递的参数
